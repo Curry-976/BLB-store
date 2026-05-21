@@ -145,7 +145,7 @@ function Header({ onNavigate, cartCount, onOpenCart, view }) {
       {/* nav */}
       <div className="px-5 py-3 grid grid-cols-3 items-center">
         {/* left nav */}
-        <nav className="flex items-center gap-6">
+        <nav className="flex items-center gap-4 lg:gap-6 min-w-0">
           {D.nav.slice(0, 3).map((n) => (
             <button
               key={n.label}
@@ -175,7 +175,7 @@ function Header({ onNavigate, cartCount, onOpenCart, view }) {
         </button>
 
         {/* right nav */}
-        <nav className="flex items-center gap-6 justify-end">
+        <nav className="flex items-center gap-4 lg:gap-6 justify-end min-w-0">
           {D.nav.slice(3).map((n) => (
             <button
               key={n.label}
