@@ -12,70 +12,70 @@ function getHeroSlides({ D, accent, onGoDrop, onOpenProduct, onGoArchives, onAdd
     {
       id: 'drop',
       kind: 'drop',
-      tag: 'PROTOCOLE 008',
-      eyebrow: 'PROCHAIN DROP — 06.06.2026 · 21:21 CET',
-      titleA: 'ON GUETTE.',
-      titleB: 'ON FRAPPE.',
-      sub: "Huitième capsule. 14 pièces textiles + pressage vinyle limité 300 ex. Sérigraphie main, confection France. Aucun restock — disparaît au coup de minuit.",
+      tag: 'Drop 008',
+      eyebrow: 'Prochain drop — 6 juin 2026, 21h21',
+      titleA: 'Protocole 008.',
+      titleB: 'Radar.',
+      sub: "Huitième capsule. 14 pièces textiles et un pressage vinyle limité. Sérigraphie main, confection France. Une fois épuisé, jamais restocké.",
       slotId: 'hero-slide-drop',
       meta: [
-        { k: 'RÉF', v: 'BLB · 008 · 26' },
-        { k: 'PIÈCES', v: '14 · CAPSULE' },
-        { k: 'PRESSAGE', v: '300 · 180g' },
+        { k: 'Référence', v: 'BLB · 008' },
+        { k: 'Pièces', v: '14' },
+        { k: 'Vinyle', v: '300 ex.' },
       ],
-      primaryCta: { label: "S'INSCRIRE AU RADAR", onClick: onAddToRadar },
-      secondaryCta: { label: "VOIR LE DROP COMPLET", onClick: onGoDrop },
+      primaryCta: { label: "S'inscrire au radar", onClick: onAddToRadar },
+      secondaryCta: { label: 'Voir le drop', onClick: onGoDrop },
       hasCountdown: true,
     },
     {
       id: 'vinyle',
       kind: 'product',
-      tag: 'PIÈCE PHARE',
-      eyebrow: 'PRESSAGE LIMITÉ · 300 EXEMPLAIRES',
-      titleA: 'PROTOCOLE 008',
+      tag: 'Pièce phare',
+      eyebrow: 'Pressage limité — 300 exemplaires',
+      titleA: 'Protocole 008.',
       titleB: 'LP 12".',
-      sub: "12 titres inédits pressés sur vinyle 180g. Pochette gatefold sérigraphiée à la main. Numéroté individuellement, jamais restocké.",
+      sub: "12 titres pressés sur vinyle 180 grammes. Pochette gatefold sérigraphiée à la main. Numéroté individuellement.",
       slotId: 'hero-slide-vinyle',
       meta: [
-        { k: 'FORMAT', v: '12" · 180g' },
-        { k: 'TIRAGE', v: '300 EX.' },
-        { k: 'PRIX', v: '38€' },
+        { k: 'Format', v: '12", 180g' },
+        { k: 'Tirage', v: '300 ex.' },
+        { k: 'Prix', v: '38 €' },
       ],
-      primaryCta: { label: 'AJOUTER · 38€', onClick: () => onOpenProduct(vinyle) },
-      secondaryCta: { label: 'VOIR LA FICHE', onClick: () => onOpenProduct(vinyle) },
+      primaryCta: { label: 'Ajouter — 38 €', onClick: () => onOpenProduct(vinyle) },
+      secondaryCta: { label: 'Voir la fiche', onClick: () => onOpenProduct(vinyle) },
     },
     {
       id: 'archives',
       kind: 'archives',
-      tag: 'ARCHIVE OUVERTE',
-      eyebrow: 'TROIS ANS · SEPT DROPS · ZÉRO RESTOCK',
-      titleA: '07 DROPS.',
-      titleB: 'TOUS ÉPUISÉS.',
-      sub: "Le catalogue complet conservé pour mémoire. Du PROTOTYPE 001 au NOCTURNE 007. Aucun n'a été restocké. Aucun ne le sera.",
+      tag: 'Archives',
+      eyebrow: 'Trois ans, sept drops, zéro restock',
+      titleA: 'Sept drops.',
+      titleB: 'Tous épuisés.',
+      sub: "Le catalogue complet, du Prototype 001 au Nocturne 007. Conservé pour mémoire. Aucun ne sera jamais restocké.",
       slotId: 'hero-slide-archives',
       meta: [
-        { k: 'DROPS', v: '07 · 2022→2025' },
-        { k: 'PIÈCES TOTAL', v: '62' },
-        { k: 'RESTOCKÉES', v: '00' },
+        { k: 'Drops', v: '07 · 2022-2025' },
+        { k: 'Pièces', v: '62' },
+        { k: 'Restocks', v: '0' },
       ],
-      primaryCta: { label: 'EXPLORER LES ARCHIVES', onClick: onGoArchives },
+      primaryCta: { label: 'Explorer les archives', onClick: onGoArchives },
       secondaryCta: null,
     },
     {
       id: 'giftcard',
       kind: 'giftcard',
-      tag: 'CARTE CADEAU',
-      eyebrow: 'OFFRIR BLB — DE 30€ À 300€',
-      titleA: 'PASSER',
-      titleB: "LE RELAIS.",
-      sub: "Carte cadeau dématérialisée. Valide 12 mois sur l'ensemble du catalogue — drop courant, archives et prochaines transmissions.",
+      tag: 'Carte cadeau',
+      eyebrow: 'De 30 à 300 €',
+      titleA: 'Offrir BLB.',
+      titleB: null,
+      sub: "Carte cadeau dématérialisée. Valide 12 mois sur l'ensemble du catalogue — drop courant, archives et transmissions à venir.",
       slotId: 'hero-slide-gift',
       meta: [
-        { k: 'MONTANT', v: '30€ → 300€' },
-        { k: 'VALIDITÉ', v: '12 MOIS' },
-        { k: 'FORMAT', v: 'DIGITAL' },
+        { k: 'Montant', v: '30 → 300 €' },
+        { k: 'Validité', v: '12 mois' },
+        { k: 'Format', v: 'Digital' },
       ],
-      primaryCta: { label: 'OFFRIR UNE CARTE', onClick: () => alert('Démo — carte cadeau non implémentée.') },
+      primaryCta: { label: 'Offrir une carte', onClick: () => alert('Démo — carte cadeau non implémentée.') },
       secondaryCta: null,
     },
   ];
@@ -282,33 +282,33 @@ function HeroSlideEditorial({ slide: s, accent, D, tabIndex }) {
     <div className="grid grid-cols-12 min-h-[80vh]">
       {/* LEFT — type column */}
       <div className="col-span-12 lg:col-span-7 hl-r border-black/10 p-10 lg:p-16 flex flex-col justify-between">
-        <div className="font-mono text-[10px] tracking-[0.24em] uppercase text-[#1a1715]/45">
+        <div className="text-[12px] text-[#1a1715]/55">
           {s.eyebrow}
         </div>
 
         <div className="my-10 lg:my-14">
           <h1
-            className="font-display leading-[0.86]"
+            className="leading-[1.02]"
             style={{
-              fontWeight: 700,
-              fontSize: 'clamp(52px, 7.5vw, 124px)',
-              letterSpacing: '-0.035em',
+              fontFamily: 'var(--font-h)',
+              fontWeight: 'var(--font-h-weight)',
+              fontSize: 'clamp(40px, 5.5vw, 92px)',
+              letterSpacing: 'var(--font-h-tracking)',
             }}
           >
             {s.titleA}
-            <br />
-            {s.titleB}
+            {s.titleB && <><br />{s.titleB}</>}
           </h1>
-          <p className="max-w-md text-[13.5px] leading-relaxed text-[#1a1715]/65 mt-7" style={{ textWrap: 'pretty' }}>
+          <p className="max-w-md text-[14px] leading-relaxed text-[#1a1715]/70 mt-6" style={{ textWrap: 'pretty' }}>
             {s.sub}
           </p>
         </div>
 
         <div className="flex flex-wrap items-end gap-8 lg:gap-12">
           {s.hasCountdown && D && (
-            <Countdown targetISO={D.drop.target} size="md" accent={accent} />
+            <Countdown targetISO={D.drop.target} size="sm" accent={accent} />
           )}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col items-start gap-2.5">
             {s.primaryCta && (
               <button
                 onClick={(e) => { e.stopPropagation(); s.primaryCta.onClick(); }}
@@ -338,19 +338,19 @@ function HeroSlideEditorial({ slide: s, accent, D, tabIndex }) {
         <image-slot
           id={s.slotId}
           shape="rect"
-          placeholder={`Visuel · ${s.tag}`}
+          placeholder={s.tag}
           style={{ width: '100%', flex: 1, minHeight: '52vh' }}
         ></image-slot>
         {s.meta && (
-          <div className="hl-t border-black/10 grid grid-cols-3 font-mono text-[10px] tracking-[0.16em] text-[#1a1715]/55 uppercase">
+          <div className="hl-t border-black/10 grid grid-cols-3 text-[12px]">
             {s.meta.map((m, i) => (
               <div
                 key={m.k}
                 className="p-5 lg:p-6"
                 style={i < s.meta.length - 1 ? { borderRight: '1px solid rgba(26,23,21,0.1)' } : undefined}
               >
-                <div className="text-[#1a1715]/35">{m.k}</div>
-                <div className="text-[#1a1715] mt-2 tabular tracking-[0.05em] normal-case">{m.v}</div>
+                <div className="text-[#1a1715]/45 text-[11px]">{m.k}</div>
+                <div className="text-[#1a1715] mt-1.5 tabular font-medium">{m.v}</div>
               </div>
             ))}
           </div>
@@ -366,7 +366,7 @@ function HeroSlideCover({ slide: s, accent, D, tabIndex }) {
       <image-slot
         id={s.slotId + '-cover'}
         shape="rect"
-        placeholder={`Background · ${s.tag}`}
+        placeholder={s.tag}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
       ></image-slot>
       <div
@@ -377,31 +377,31 @@ function HeroSlideCover({ slide: s, accent, D, tabIndex }) {
       />
       <div className="relative min-h-[82vh] flex flex-col">
         <div className="flex-1 flex items-center justify-center px-6 py-20">
-          <div className="text-center max-w-4xl">
-            <div className="font-mono text-[10px] tracking-[0.24em] uppercase text-[#1a1715]/65 mb-8">
+          <div className="text-center max-w-3xl">
+            <div className="text-[12px] text-[#1a1715]/55 mb-6">
               {s.eyebrow}
             </div>
             <h1
-              className="font-display leading-[0.86] mb-10"
+              className="leading-[1.02] mb-8"
               style={{
-                fontWeight: 700,
-                fontSize: 'clamp(56px, 9vw, 160px)',
-                letterSpacing: '-0.035em',
+                fontFamily: 'var(--font-h)',
+                fontWeight: 'var(--font-h-weight)',
+                fontSize: 'clamp(48px, 6.5vw, 112px)',
+                letterSpacing: 'var(--font-h-tracking)',
               }}
             >
               {s.titleA}
-              <br />
-              {s.titleB}
+              {s.titleB && <><br />{s.titleB}</>}
             </h1>
             {s.hasCountdown && D && (
-              <div className="flex justify-center mb-10">
-                <Countdown targetISO={D.drop.target} size="md" accent={accent} />
+              <div className="flex justify-center mb-8">
+                <Countdown targetISO={D.drop.target} size="sm" accent={accent} />
               </div>
             )}
             <p className="max-w-xl mx-auto text-[14px] leading-relaxed text-[#1a1715]/75" style={{ textWrap: 'pretty' }}>
               {s.sub}
             </p>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
               {s.primaryCta && (
                 <button
                   onClick={(e) => { e.stopPropagation(); s.primaryCta.onClick(); }}
@@ -426,17 +426,16 @@ function HeroSlideCover({ slide: s, accent, D, tabIndex }) {
           </div>
         </div>
 
-        {/* bottom meta strip */}
         {s.meta && (
-          <div className="hl-t border-black/15 grid grid-cols-3 font-mono text-[10px] tracking-[0.16em] text-[#1a1715]/65 uppercase backdrop-blur-sm bg-[#1a1715]/35">
+          <div className="hl-t border-black/15 grid grid-cols-3 text-[12px] backdrop-blur-sm bg-[#F2EFE7]/55">
             {s.meta.map((m, i) => (
               <div
                 key={m.k}
                 className="p-5 lg:p-6"
                 style={i < s.meta.length - 1 ? { borderRight: '1px solid rgba(26,23,21,0.12)' } : undefined}
               >
-                <div className="text-[#1a1715]/45">{m.k}</div>
-                <div className="text-[#1a1715] mt-2 tabular tracking-[0.05em] normal-case">{m.v}</div>
+                <div className="text-[#1a1715]/45 text-[11px]">{m.k}</div>
+                <div className="text-[#1a1715] mt-1.5 tabular font-medium">{m.v}</div>
               </div>
             ))}
           </div>

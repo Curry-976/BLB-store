@@ -3,12 +3,13 @@
 const { useState: useState_a, useEffect: useEffect_a, useMemo: useMemo_a } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "type": "mix",
+  "type": "sans",
   "accent": "#1a1715",
   "grid": "4",
   "heroStyle": "editorial",
   "heroAuto": true,
-  "grain": "off"
+  "grain": "off",
+  "cursor": false
 }/*EDITMODE-END*/;
 
 const ACCENT_OPTIONS = ['#1a1715', '#7a5a32', '#9B1313'];
@@ -76,7 +77,7 @@ function App() {
 
   return (
     <>
-      <MagneticCursor />
+      {t.cursor && <MagneticCursor />}
       <Grain level={t.grain} />
 
       <Header
@@ -111,7 +112,6 @@ function App() {
               onGoArchives={() => scrollToId('archives')}
               onAddToRadar={() => goto('drops')}
             />
-            <Ticker items={D.ticker} accent={t.accent} />
             <MerchGrid
               density={t.grid}
               products={D.products}
@@ -164,12 +164,12 @@ function App() {
       <TweaksPanel>
         <TweakSection label="Typographie" />
         <TweakRadio
-          label="Système type"
+          label="Style"
           value={t.type}
           options={[
-            { value: 'mono', label: 'Mono' },
+            { value: 'sans', label: 'Sans' },
             { value: 'serif', label: 'Serif' },
-            { value: 'mix', label: 'Mix' },
+            { value: 'mono', label: 'Mono' },
           ]}
           onChange={(v) => setTweak('type', v)}
         />
@@ -212,7 +212,7 @@ function App() {
 
         <TweakSection label="Atmosphère" />
         <TweakRadio
-          label="Grain VHS"
+          label="Grain"
           value={t.grain}
           options={[
             { value: 'off', label: 'Off' },
@@ -220,6 +220,11 @@ function App() {
             { value: 'strong', label: 'Fort' },
           ]}
           onChange={(v) => setTweak('grain', v)}
+        />
+        <TweakToggle
+          label="Curseur magnétique"
+          value={t.cursor}
+          onChange={(v) => setTweak('cursor', v)}
         />
 
         <TweakSection label="Navigation" />

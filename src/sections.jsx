@@ -227,11 +227,11 @@ function MerchGrid({ density, products, onOpen, onQuickAdd, accent }) {
     <section id="boutique" className="hl-b border-black/10">
       <SectionHeader
         index="01"
-        eyebrow="BOUTIQUE — PROTOCOLE 008"
-        title="LA CAPSULE"
-        sub="14 pièces. Sérigraphie main. Quantités limitées par taille."
+        eyebrow="Boutique — Drop 008"
+        title="La capsule."
+        sub="Quatorze pièces. Sérigraphie main. Quantités limitées par taille."
         accent={accent}
-        meta={`${products.length} RÉFÉRENCES · LIVRAISON 14 JOURS`}
+        
       />
       {density === '3' && <MerchGrid3 products={products} onOpen={onOpen} onQuickAdd={onQuickAdd} />}
       {density === '4' && <MerchGrid4 products={products} onOpen={onOpen} onQuickAdd={onQuickAdd} />}
@@ -287,85 +287,47 @@ function MerchGridAsym({ products, onOpen, onQuickAdd }) {
 function ProductCard({ p, idx, cols, onOpen, onQuickAdd, fill }) {
   const [size, setSize] = useState_s(p.sizes[Math.min(1, p.sizes.length - 1)]);
   const borderRight = cols === 4 ? (idx % 4 !== 3) : cols === 3 ? (idx % 3 !== 2) : true;
-  const rowBottom = true;
   return (
     <div
-      className={`product-card group hl-white relative ${fill ? 'h-full' : 'aspect-[4/5]'}`}
+      className={`product-card group relative ${fill ? 'h-full' : ''}`}
       style={{
-        borderRight: borderRight && !fill ? '1px solid rgba(26,23,21,0.1)' : undefined,
-        borderBottom: rowBottom && !fill ? '1px solid rgba(26,23,21,0.1)' : undefined,
-        border: fill ? 'none' : undefined,
+        borderRight: borderRight && !fill ? '1px solid rgba(26,23,21,0.08)' : undefined,
+        borderBottom: !fill ? '1px solid rgba(26,23,21,0.08)' : undefined,
       }}
     >
-      {/* image A */}
-      <image-slot
-        id={`prod-${p.id}-a`}
-        shape="rect"
-        placeholder={`${p.ref} · face A`}
-        class="pc-img-a"
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-      ></image-slot>
-      {/* image B (hover) */}
-      <image-slot
-        id={`prod-${p.id}-b`}
-        shape="rect"
-        placeholder={`${p.ref} · face B`}
-        class="pc-img-b"
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-      ></image-slot>
+      <div className={`relative ${fill ? 'h-full' : 'aspect-[4/5]'} overflow-hidden bg-[#ECE8DD]`}>
+        <image-slot id={`prod-${p.id}-a`} shape="rect" placeholder={`${p.ref} · face A`} class="pc-img-a" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}></image-slot>
+        <image-slot id={`prod-${p.id}-b`} shape="rect" placeholder={`${p.ref} · face B`} class="pc-img-b" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}></image-slot>
 
-      {/* badges top */}
-      <div className="absolute top-3 left-3 right-3 flex items-start justify-between z-10">
-        <div className="flex gap-2">
-          {p.tag && (
-            <span className="font-mono text-[9px] tracking-[0.18em] px-2 py-1 bg-[#1a1715] text-[#F2EFE7] uppercase whitespace-nowrap">
-              {p.tag}
-            </span>
-          )}
-          {p.explicit && <span className="explicit-badge">EXPLICIT</span>}
+        {(p.tag || p.explicit) && (
+          <div className="absolute top-3 left-3 z-10 flex gap-1.5">
+            {p.tag && (
+              <span className="text-[10px] tracking-wide px-2 py-1 bg-[#1a1715] text-[#F2EFE7] uppercase whitespace-nowrap font-medium">{p.tag}</span>
+            )}
+            {p.explicit && (
+              <span className="text-[10px] tracking-wide px-2 py-1 bg-[#F2EFE7] text-[#1a1715] uppercase font-medium border border-[#1a1715]/20">Explicit</span>
+            )}
+          </div>
+        )}
+
+        <button onClick={() => onOpen(p)} className="absolute inset-0 z-[5]" aria-label={`Ouvrir ${p.name}`} data-magnetic />
+
+        <div className="qa absolute left-0 right-0 bottom-0 z-20 bg-[#F2EFE7]/95 backdrop-blur-sm border-t border-[#1a1715]/10 grid grid-cols-[1fr_auto]">
+          <div className="flex items-center gap-1 px-3 py-2.5 overflow-x-auto">
+            {p.sizes.map((s) => (
+              <button key={s} onClick={(e) => { e.stopPropagation(); setSize(s); }} className={`text-[11px] px-2.5 py-1 transition-colors ${size === s ? 'bg-[#1a1715] text-[#F2EFE7]' : 'hover:bg-[#1a1715]/5'}`} data-magnetic>{s}</button>
+            ))}
+          </div>
+          <button onClick={(e) => { e.stopPropagation(); onQuickAdd(p, size); }} className="px-4 py-2.5 text-[12px] font-medium bg-[#1a1715] text-[#F2EFE7] hover:bg-[#2b2622]" data-magnetic>Ajouter</button>
         </div>
       </div>
 
-      {/* meta top */}
-      <div className="absolute bottom-[68px] left-4 right-4 z-10 flex items-end justify-between gap-3">
+      <div className="px-4 py-4 flex items-baseline justify-between gap-3">
         <div className="min-w-0">
-          <div className="font-mono text-[10px] tracking-[0.18em] text-[#1a1715]/55 uppercase truncate">{p.sub}</div>
-          <div className="font-display text-2xl leading-tight mt-1.5" style={{ fontWeight: 700, letterSpacing: '-0.02em' }}>{p.name}</div>
+          <div className="text-[14px] font-medium text-[#1a1715] truncate" style={{ letterSpacing: '-0.01em' }}>{p.name}</div>
+          <div className="text-[12px] text-[#1a1715]/55 mt-0.5 truncate">{p.sub}</div>
         </div>
-        <div className="text-right shrink-0">
-          <div className="font-mono text-sm tabular text-[#1a1715]">{p.price}€</div>
-        </div>
-      </div>
-
-      {/* full-click → open */}
-      <button
-        onClick={() => onOpen(p)}
-        className="absolute inset-0 z-[5]"
-        aria-label={`Ouvrir ${p.name}`}
-        data-magnetic
-      />
-
-      {/* quick add bar */}
-      <div className="qa absolute left-0 right-0 bottom-0 z-20 bg-[#1a1715] text-[#F2EFE7] hl-t border-black/20 grid grid-cols-[1fr_auto]">
-        <div className="flex items-center gap-1 px-3 py-3 overflow-x-auto">
-          {p.sizes.map((s) => (
-            <button
-              key={s}
-              onClick={(e) => { e.stopPropagation(); setSize(s); }}
-              className={`font-mono text-[10px] tracking-[0.15em] px-2 py-1 border ${size === s ? 'bg-[#F2EFE7] text-[#1a1715] border-black' : 'border-black/30 hover:border-black'}`}
-              data-magnetic
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-        <button
-          onClick={(e) => { e.stopPropagation(); onQuickAdd(p, size); }}
-          className="px-4 py-3 font-mono text-[11px] tracking-[0.18em] bg-[#F2EFE7] text-[#1a1715] hover:bg-[#2b2622]"
-          data-magnetic
-        >
-          + AJOUTER
-        </button>
+        <div className="text-[14px] tabular shrink-0 font-medium" style={{ letterSpacing: '-0.01em' }}>{p.price} €</div>
       </div>
     </div>
   );
@@ -373,30 +335,23 @@ function ProductCard({ p, idx, cols, onOpen, onQuickAdd, fill }) {
 
 function SectionHeader({ index, eyebrow, title, sub, accent, meta }) {
   return (
-    <div className="hl-b border-black/10 px-6 md:px-12 py-12 md:py-16">
-      <div className="flex flex-wrap items-end justify-between gap-8">
-        <div className="max-w-2xl">
-          {eyebrow && (
-            <div className="font-mono text-[10px] tracking-[0.24em] uppercase text-[#1a1715]/45 mb-5">
-              {eyebrow}
-            </div>
-          )}
-          <h2
-            className="font-display leading-[0.95]"
-            style={{ fontWeight: 700, fontSize: 'clamp(36px, 5vw, 72px)', letterSpacing: '-0.025em' }}
-          >
-            {title}
-          </h2>
-          {sub && (
-            <p className="font-mono text-[12px] text-[#1a1715]/55 mt-5 max-w-md leading-relaxed">
-              {sub}
-            </p>
-          )}
-        </div>
-        {meta && (
-          <div className="font-mono text-[10px] tracking-[0.18em] text-[#1a1715]/35 uppercase">
-            {meta}
+    <div className="hl-b border-black/10 px-6 md:px-12 py-14 md:py-20">
+      <div className="max-w-3xl">
+        {eyebrow && (
+          <div className="text-[12px] text-[#1a1715]/55 mb-4">
+            {eyebrow}
           </div>
+        )}
+        <h2
+          className="leading-[1.05]"
+          style={{ fontFamily: 'var(--font-h)', fontWeight: 'var(--font-h-weight)', letterSpacing: 'var(--font-h-tracking)', fontSize: 'clamp(28px, 3.4vw, 48px)' }}
+        >
+          {title}
+        </h2>
+        {sub && (
+          <p className="text-[14px] text-[#1a1715]/65 mt-4 max-w-md leading-relaxed">
+            {sub}
+          </p>
         )}
       </div>
     </div>
@@ -524,45 +479,48 @@ function Lookbook({ accent }) {
     <section id="lookbook" className="hl-b border-black/10">
       <SectionHeader
         index="03"
-        eyebrow="ÉDITORIAL — LOOKBOOK"
-        title="EN TERRAIN."
+        eyebrow="Lookbook"
+        title="En terrain."
         sub="Capsule 008 photographiée à La Friche, Marseille, en mars 2026. Direction artistique : Atelier BLB."
         accent={accent}
-        meta="14 IMAGES · MARS 2026"
+        
       />
 
       <div className="grid grid-cols-12 hl-t border-black/10">
         <div className="col-span-12 md:col-span-8 hl-r border-black/10 relative" style={{ minHeight: 540 }}>
           <image-slot id="look-1" shape="rect" placeholder="Lookbook · plan large" style={{ width: '100%', height: '100%' }}></image-slot>
-          <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between font-mono text-[10px] tracking-[0.18em] uppercase">
-            <span className="bg-[#1a1715] text-[#F2EFE7] px-2 py-1">FRAME 01 / 14 — CAPSULE 008 · LA FRICHE</span>
-            <span className="tabular bg-[#1a1715] text-[#F2EFE7] px-2 py-1">35MM · F1.8 · 1/125</span>
-          </div>
         </div>
         <div className="col-span-12 md:col-span-4 flex flex-col">
           <div className="hl-b border-black/10 relative" style={{ flex: 1, minHeight: 270 }}>
             <image-slot id="look-2" shape="rect" placeholder="Détail textile" style={{ width: '100%', height: '100%' }}></image-slot>
           </div>
           <div className="relative" style={{ flex: 1, minHeight: 270 }}>
-            <image-slot id="look-3" shape="rect" placeholder="Portrait LØUVE" style={{ width: '100%', height: '100%' }}></image-slot>
+            <image-slot id="look-3" shape="rect" placeholder="Portrait" style={{ width: '100%', height: '100%' }}></image-slot>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-12 hl-t border-black/10">
-        <div className="col-span-12 md:col-span-4 hl-r border-black/10 p-8 md:p-10 flex flex-col justify-between">
-          <div>
-            <div className="font-eyebrow text-[#1a1715]/40 mb-4">[CRÉDITS]</div>
-            <div className="space-y-3 font-mono text-[11px] tracking-[0.05em] text-[#1a1715]/70 uppercase">
-              <div className="flex justify-between hl-b border-black/10 pb-2"><span className="text-[#1a1715]/40">PHOTO</span><span>ATELIER</span></div>
-              <div className="flex justify-between hl-b border-black/10 pb-2"><span className="text-[#1a1715]/40">STYLISME</span><span>JUNO L.</span></div>
-              <div className="flex justify-between hl-b border-black/10 pb-2"><span className="text-[#1a1715]/40">DA</span><span>BLB</span></div>
-              <div className="flex justify-between hl-b border-black/10 pb-2"><span className="text-[#1a1715]/40">CASTING</span><span>MAISON</span></div>
-              <div className="flex justify-between"><span className="text-[#1a1715]/40">LIEU</span><span>LA FRICHE · 13</span></div>
+        <div className="col-span-12 md:col-span-4 hl-r border-black/10 p-8 md:p-12 flex flex-col justify-between gap-10">
+          <div className="space-y-3 text-[13px]">
+            <div className="flex justify-between hl-b border-black/10 pb-3">
+              <span className="text-[#1a1715]/45">Photo</span><span>Atelier BLB</span>
+            </div>
+            <div className="flex justify-between hl-b border-black/10 pb-3">
+              <span className="text-[#1a1715]/45">Stylisme</span><span>Juno L.</span>
+            </div>
+            <div className="flex justify-between hl-b border-black/10 pb-3">
+              <span className="text-[#1a1715]/45">Direction artistique</span><span>BLB</span>
+            </div>
+            <div className="flex justify-between hl-b border-black/10 pb-3">
+              <span className="text-[#1a1715]/45">Casting</span><span>Maison</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-[#1a1715]/45">Lieu</span><span>La Friche, Marseille</span>
             </div>
           </div>
-          <button className="btn-ghost mt-8 self-start" data-magnetic>
-            <span>VOIR LES 14 IMAGES</span><span>→</span>
+          <button className="btn-ghost self-start" data-magnetic>
+            <span>Voir les 14 images</span><span>→</span>
           </button>
         </div>
         <div className="col-span-12 md:col-span-8 grid grid-cols-2 gap-px bg-[#1a1715]/8">

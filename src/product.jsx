@@ -1,4 +1,4 @@
-// BLB — Product detail page
+// BLB — Product detail page (minimalist cream)
 
 const { useState: useState_p, useEffect: useEffect_p } = React;
 
@@ -24,27 +24,26 @@ function ProductPage({ product, products, onBack, onAdd, onOpenCart, accent }) {
 
   return (
     <div className="pt-[68px]">
-      {/* breadcrumb / back */}
-      <div className="hl-b border-black/10 px-6 md:px-10 py-4 flex items-center justify-between font-mono text-[10px] tracking-[0.2em] uppercase text-[#1a1715]/50">
+      {/* breadcrumb */}
+      <div className="hl-b border-black/10 px-6 md:px-12 py-4 flex items-center justify-between text-[12px] text-[#1a1715]/65">
         <div className="flex items-center gap-3">
           <button onClick={onBack} className="hover:text-[#1a1715] inline-flex items-center gap-2" data-magnetic>
-            <span>←</span> RETOUR BOUTIQUE
+            <span>←</span> Retour
           </button>
-          <span className="text-[#1a1715]/20">/</span>
-          <span>BOUTIQUE</span>
-          <span className="text-[#1a1715]/20">/</span>
-          <span style={{ color: accent }}>{product.ref}</span>
+          <span className="text-[#1a1715]/25">/</span>
+          <span>Boutique</span>
+          <span className="text-[#1a1715]/25">/</span>
+          <span className="text-[#1a1715] tabular">{product.ref}</span>
         </div>
-        <div className="hidden md:flex items-center gap-4">
-          <span>{product.tag || 'STANDARD'}</span>
-          <span className="tabular">STOCK · {product.stock}</span>
+        <div className="hidden md:block text-[12px] text-[#1a1715]/45 tabular">
+          Stock — {product.stock === 'BAS' ? 'bas' : 'disponible'}
         </div>
       </div>
 
       <div className="grid grid-cols-12">
         {/* LEFT — image gallery */}
         <div className="col-span-12 lg:col-span-7 hl-r border-black/10">
-          <div className="relative aspect-[5/6]">
+          <div className="relative aspect-[5/6] bg-[#ECE8DD]">
             {[0, 1, 2].map((i) => (
               <div key={i} className="absolute inset-0 transition-opacity duration-500"
                 style={{ opacity: activeImg === i ? 1 : 0, pointerEvents: activeImg === i ? 'auto' : 'none' }}>
@@ -56,18 +55,17 @@ function ProductPage({ product, products, onBack, onAdd, onOpenCart, accent }) {
                 ></image-slot>
               </div>
             ))}
-            {/* image index */}
-            <div className="absolute top-4 right-4 font-mono text-[10px] tracking-[0.2em] text-[#1a1715]/70 bg-[#1a1715]/40 px-2 py-1 hl-white-strong tabular">
+            <div className="absolute top-4 right-4 text-[11px] text-[#1a1715]/70 bg-[#F2EFE7]/80 backdrop-blur-sm px-2 py-1 tabular">
               {String(activeImg + 1).padStart(2, '0')} / 03
             </div>
           </div>
-          {/* thumbs */}
           <div className="grid grid-cols-3 hl-t border-black/10">
             {[0, 1, 2].map((i) => (
               <button
                 key={i}
                 onClick={() => setActiveImg(i)}
-                className={`aspect-square relative hl-r border-black/10 last:border-r-0 transition-opacity ${activeImg === i ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
+                className={`aspect-square relative transition-opacity ${activeImg === i ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
+                style={i < 2 ? { borderRight: '1px solid rgba(26,23,21,0.1)' } : undefined}
                 data-magnetic
               >
                 <image-slot
@@ -76,9 +74,6 @@ function ProductPage({ product, products, onBack, onAdd, onOpenCart, accent }) {
                   placeholder={`vue ${i + 1}`}
                   style={{ width: '100%', height: '100%' }}
                 ></image-slot>
-                {activeImg === i && (
-                  <span className="absolute top-2 left-2 w-1.5 h-1.5 rounded-full" style={{ background: accent }} />
-                )}
               </button>
             ))}
           </div>
@@ -86,34 +81,34 @@ function ProductPage({ product, products, onBack, onAdd, onOpenCart, accent }) {
 
         {/* RIGHT — product info */}
         <div className="col-span-12 lg:col-span-5 sticky top-[68px] self-start">
-          <div className="p-6 md:p-10 hl-b border-black/10">
+          <div className="p-8 md:p-12 hl-b border-black/10">
             <div className="flex items-center gap-2 mb-6">
               {product.tag && (
-                <span className="font-mono text-[9px] tracking-[0.18em] px-2 py-1 bg-[#1a1715] text-[#F2EFE7] uppercase">
-                  {product.tag}
-                </span>
+                <span className="text-[10px] tracking-wide px-2 py-1 bg-[#1a1715] text-[#F2EFE7] uppercase font-medium">{product.tag}</span>
               )}
-              {product.explicit && <span className="explicit-badge">EXPLICIT</span>}
-              <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#1a1715]/40 ml-auto">{product.ref}</span>
+              {product.explicit && (
+                <span className="text-[10px] tracking-wide px-2 py-1 bg-[#F2EFE7] text-[#1a1715] uppercase font-medium border border-[#1a1715]/25">Explicit</span>
+              )}
+              <span className="text-[12px] text-[#1a1715]/45 ml-auto tabular">{product.ref}</span>
             </div>
-            <h1 className="font-display leading-[0.92]" style={{ fontWeight: 900, fontSize: 'clamp(40px, 4.4vw, 68px)', letterSpacing: '-0.04em' }}>
+            <h1 className="leading-[1.05] font-medium" style={{ fontFamily: 'var(--font-h)', fontSize: 'clamp(28px, 3vw, 44px)', letterSpacing: '-0.025em' }}>
               {product.name}
             </h1>
-            <div className="font-mono text-[12px] tracking-[0.04em] uppercase text-[#1a1715]/55 mt-3">
+            <div className="text-[14px] text-[#1a1715]/65 mt-2">
               {product.sub}
             </div>
             <div className="mt-6 flex items-baseline justify-between hl-b border-black/10 pb-6">
-              <div className="font-display tabular" style={{ fontWeight: 900, fontSize: '40px' }}>{product.price}€</div>
-              <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#1a1715]/40">TVA INCLUSE · LIV. INCLUSE FR</div>
+              <div className="tabular font-medium" style={{ fontFamily: 'var(--font-h)', fontSize: '28px', letterSpacing: '-0.02em' }}>{product.price} €</div>
+              <div className="text-[12px] text-[#1a1715]/55">TVA incluse · Livraison France offerte dès 80 €</div>
             </div>
           </div>
 
           {/* size selector */}
-          <div className="p-6 md:p-10 hl-b border-black/10">
+          <div className="p-8 md:p-12 hl-b border-black/10">
             <div className="flex items-center justify-between mb-4">
-              <div className="font-eyebrow text-[#1a1715]/50">TAILLE</div>
-              <button className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#1a1715]/40 hover:text-[#1a1715]" data-magnetic>
-                GUIDE DES TAILLES ↗
+              <div className="text-[12px] text-[#1a1715]/55">Taille</div>
+              <button className="text-[12px] text-[#1a1715]/55 hover:text-[#1a1715] underline-offset-2 hover:underline" data-magnetic>
+                Guide des tailles →
               </button>
             </div>
             <div className="grid grid-cols-5 gap-2">
@@ -121,7 +116,7 @@ function ProductPage({ product, products, onBack, onAdd, onOpenCart, accent }) {
                 <button
                   key={s}
                   onClick={() => setSize(s)}
-                  className={`py-3 font-mono text-[12px] tracking-[0.15em] transition-colors ${size === s ? 'bg-[#1a1715] text-[#F2EFE7] border border-black' : 'border border-black/15 hover:border-black/50'}`}
+                  className={`py-3 text-[13px] transition-colors ${size === s ? 'bg-[#1a1715] text-[#F2EFE7]' : 'border border-[#1a1715]/15 hover:border-[#1a1715]/50'}`}
                   data-magnetic
                 >
                   {s}
@@ -131,40 +126,40 @@ function ProductPage({ product, products, onBack, onAdd, onOpenCart, accent }) {
           </div>
 
           {/* qty + add */}
-          <div className="p-6 md:p-10 hl-b border-black/10">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="font-eyebrow text-[#1a1715]/50">QUANTITÉ</div>
-              <div className="flex items-center hl-white">
-                <button onClick={() => setQty(Math.max(1, qty - 1))} className="w-10 h-10 hl-r border-black/15 font-mono hover:bg-[#1a1715]/5" data-magnetic>−</button>
-                <span className="w-12 text-center font-mono tabular">{String(qty).padStart(2, '0')}</span>
-                <button onClick={() => setQty(Math.min(8, qty + 1))} className="w-10 h-10 hl-l border-black/15 font-mono hover:bg-[#1a1715]/5" data-magnetic>+</button>
+          <div className="p-8 md:p-12 hl-b border-black/10">
+            <div className="flex items-center gap-4 mb-5">
+              <div className="text-[12px] text-[#1a1715]/55">Quantité</div>
+              <div className="flex items-center border border-[#1a1715]/20">
+                <button onClick={() => setQty(Math.max(1, qty - 1))} className="w-10 h-10 hover:bg-[#1a1715]/5" style={{ borderRight: '1px solid rgba(26,23,21,0.15)' }} data-magnetic>−</button>
+                <span className="w-12 text-center tabular text-[13px]">{String(qty).padStart(2, '0')}</span>
+                <button onClick={() => setQty(Math.min(8, qty + 1))} className="w-10 h-10 hover:bg-[#1a1715]/5" style={{ borderLeft: '1px solid rgba(26,23,21,0.15)' }} data-magnetic>+</button>
               </div>
             </div>
             <button onClick={submit} className="btn-primary w-full justify-center" data-magnetic>
-              <span>{added ? '✓ AJOUTÉ AU PANIER' : `AJOUTER · ${product.price * qty}€`}</span>
+              <span>{added ? '✓ Ajouté au panier' : `Ajouter — ${product.price * qty} €`}</span>
               <span>→</span>
             </button>
             <button onClick={onOpenCart} className="btn-ghost w-full justify-center mt-3" data-magnetic>
-              <span>VOIR LE PANIER</span><span>→</span>
+              <span>Voir le panier</span><span>→</span>
             </button>
           </div>
 
-          {/* description + accordion */}
-          <div className="p-6 md:p-10 space-y-5 font-mono text-[12px] text-[#1a1715]/70 leading-relaxed">
+          {/* description + accordions */}
+          <div className="p-8 md:p-12 space-y-5 text-[14px] text-[#1a1715]/75 leading-relaxed">
             <p>{product.desc}</p>
-            <Accordion title="DÉTAILS TECHNIQUES">
-              <ul className="space-y-1.5 text-[#1a1715]/60">
-                <li>· Coton 240gsm / molleton brossé</li>
-                <li>· Sérigraphie 3 passages — encres écologiques</li>
-                <li>· Confection France · atelier Mile-End</li>
+            <Accordion title="Détails techniques">
+              <ul className="space-y-1.5 text-[#1a1715]/70 text-[13.5px]">
+                <li>· Coton 240 g/m² ou molleton brossé</li>
+                <li>· Sérigraphie 3 passages, encres écologiques</li>
+                <li>· Confection France — atelier Mile-End</li>
                 <li>· Étiquette tissée intérieure numérotée</li>
               </ul>
             </Accordion>
-            <Accordion title="LIVRAISON & RETOURS">
-              <p className="text-[#1a1715]/60">Expédition sous 5–10 jours après clôture du drop. Retours acceptés sous 14 jours, frais à la charge du client. Une fois la transmission terminée, les invendus partent au pilon.</p>
+            <Accordion title="Livraison et retours">
+              <p className="text-[#1a1715]/70 text-[13.5px]">Expédition sous 5 à 10 jours après la clôture du drop. Retours acceptés sous 14 jours, frais à la charge du client. Pas de retour sur les pressages vinyle ou cassette ouverts.</p>
             </Accordion>
-            <Accordion title="ENTRETIEN">
-              <p className="text-[#1a1715]/60">Lavage 30°C envers, sans adoucissant. Séchage à plat. Ne pas repasser sur la sérigraphie.</p>
+            <Accordion title="Entretien">
+              <p className="text-[#1a1715]/70 text-[13.5px]">Lavage à 30 °C sur l'envers, sans adoucissant. Séchage à plat. Ne pas repasser sur la sérigraphie.</p>
             </Accordion>
           </div>
         </div>
@@ -173,14 +168,13 @@ function ProductPage({ product, products, onBack, onAdd, onOpenCart, accent }) {
       {/* related */}
       <div className="hl-t border-black/10">
         <SectionHeader
-          index="—"
-          eyebrow="DANS LA MÊME CAPSULE"
-          title="AUSSI DU DROP 008."
+          eyebrow="Dans la même capsule"
+          title="Aussi du Drop 008."
           accent={accent}
         />
         <div className="grid grid-cols-2 lg:grid-cols-4 hl-t border-black/10">
           {related.map((p, i) => (
-            <ProductCardMini key={p.id} p={p} idx={i} onOpen={() => onAdd && onBack && onBack()} />
+            <ProductCardMini key={p.id} p={p} idx={i} onOpen={() => onBack && onBack()} last={i === 3} />
           ))}
         </div>
       </div>
@@ -192,27 +186,28 @@ function Accordion({ title, children }) {
   const [open, setOpen] = useState_p(false);
   return (
     <div className="hl-t border-black/10 pt-4">
-      <button onClick={() => setOpen((o) => !o)} className="w-full flex items-center justify-between font-mono text-[11px] tracking-[0.2em] uppercase text-[#1a1715] hover:text-[#1a1715]/80" data-magnetic>
+      <button onClick={() => setOpen((o) => !o)} className="w-full flex items-center justify-between text-[14px] font-medium text-[#1a1715] hover:text-[#1a1715]/70" data-magnetic>
         <span>{title}</span>
-        <span className="text-[#1a1715]/50">{open ? '−' : '+'}</span>
+        <span className="text-[#1a1715]/45 text-lg font-light" style={{ transform: open ? 'rotate(45deg)' : 'rotate(0)', transition: 'transform .25s' }}>+</span>
       </button>
       <div className="overflow-hidden transition-all duration-300" style={{ maxHeight: open ? 400 : 0 }}>
-        <div className="pt-4">{children}</div>
+        <div className="pt-3">{children}</div>
       </div>
     </div>
   );
 }
 
-function ProductCardMini({ p, idx }) {
+function ProductCardMini({ p, idx, last }) {
   return (
-    <div className="aspect-[4/5] product-card relative hl-r hl-b border-black/10">
-      <image-slot id={`mini-${p.id}`} shape="rect" placeholder={p.ref} class="pc-img-a" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}></image-slot>
-      <div className="absolute bottom-0 left-0 right-0 p-4 hl-t border-black/10 bg-[#1a1715]/40 backdrop-blur-sm flex items-end justify-between">
-        <div>
-          <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-[#1a1715]/50">{p.ref}</div>
-          <div className="font-display text-lg leading-tight mt-1">{p.name}</div>
+    <div className="aspect-[4/5] relative bg-[#ECE8DD]"
+      style={{ borderRight: !last ? '1px solid rgba(26,23,21,0.08)' : undefined }}>
+      <image-slot id={`mini-${p.id}`} shape="rect" placeholder={p.ref} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}></image-slot>
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-[#F2EFE7]/95 backdrop-blur-sm border-t border-[#1a1715]/10 flex items-end justify-between">
+        <div className="min-w-0">
+          <div className="text-[14px] font-medium truncate" style={{ fontFamily: 'var(--font-h)', letterSpacing: '-0.015em' }}>{p.name}</div>
+          <div className="text-[11px] text-[#1a1715]/55 mt-0.5 tabular">{p.ref}</div>
         </div>
-        <div className="font-mono tabular text-sm">{p.price}€</div>
+        <div className="tabular text-[14px] shrink-0 font-medium">{p.price} €</div>
       </div>
     </div>
   );
