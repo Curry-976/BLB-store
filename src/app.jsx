@@ -76,7 +76,6 @@ function App() {
 
   return (
     <>
-      <MagneticCursor />
       <Grain level={t.grain} />
 
       <Header
