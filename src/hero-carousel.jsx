@@ -161,21 +161,10 @@ function HeroCarousel({ accent, autoAdvance, slideStyle, onGoDrop, onOpenProduct
 
   return (
     <section
-      className="relative hl-b border-white/10 pt-[88px] overflow-hidden"
+      className="relative hl-b border-black/10 pt-[68px] overflow-hidden"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* sticky top bar with slide info */}
-      <div className="hl-b border-white/10 px-5 md:px-8 py-3 flex items-center justify-between font-mono text-[10px] tracking-[0.22em] text-white/60 uppercase tabular gap-4">
-        <div className="flex items-center gap-4">
-          <span style={{ color: accent }}>● {slides[idx].tag}</span>
-          <span className="hidden md:inline text-white/40">{slides[idx].eyebrow}</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="tabular text-white/70">{String(idx + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}</span>
-        </div>
-      </div>
-
       {/* track */}
       <div
         ref={trackRef}
@@ -212,7 +201,7 @@ function HeroCarousel({ accent, autoAdvance, slideStyle, onGoDrop, onOpenProduct
       {/* arrows */}
       <button
         onClick={(e) => { e.stopPropagation(); prev(); }}
-        className="hidden md:flex absolute left-5 top-1/2 -translate-y-1/2 z-30 w-12 h-12 items-center justify-center hl-white-strong bg-black/40 backdrop-blur-sm hover:bg-white hover:text-black transition-colors"
+        className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 items-center justify-center hl-white-strong bg-[#1a1715]/30 backdrop-blur-sm hover:bg-[#1a1715] hover:text-[#F2EFE7] transition-colors"
         aria-label="Précédent"
         data-magnetic
       >
@@ -220,17 +209,20 @@ function HeroCarousel({ accent, autoAdvance, slideStyle, onGoDrop, onOpenProduct
       </button>
       <button
         onClick={(e) => { e.stopPropagation(); next(); }}
-        className="hidden md:flex absolute right-5 top-1/2 -translate-y-1/2 z-30 w-12 h-12 items-center justify-center hl-white-strong bg-black/40 backdrop-blur-sm hover:bg-white hover:text-black transition-colors"
+        className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 items-center justify-center hl-white-strong bg-[#1a1715]/30 backdrop-blur-sm hover:bg-[#1a1715] hover:text-[#F2EFE7] transition-colors"
         aria-label="Suivant"
         data-magnetic
       >
         <span className="font-mono text-lg">→</span>
       </button>
 
-      {/* bottom dots + progress bar */}
-      <div className="hl-t border-white/10 px-5 md:px-8 py-4 flex items-center gap-6 bg-black">
+      {/* bottom indicator strip */}
+      <div className="hl-t border-black/10 px-6 md:px-10 py-5 flex items-center gap-6 bg-[#F2EFE7]">
+        <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#1a1715]/45 tabular shrink-0">
+          {String(idx + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+        </div>
         {/* progress bar */}
-        <div className="flex-1 h-px bg-white/10 relative overflow-hidden">
+        <div className="flex-1 h-px bg-[#1a1715]/10 relative overflow-hidden">
           <div
             key={`${idx}-${paused || dragging}`}
             className="absolute left-0 top-0 bottom-0 origin-left"
@@ -245,7 +237,7 @@ function HeroCarousel({ accent, autoAdvance, slideStyle, onGoDrop, onOpenProduct
           />
         </div>
         {/* dots */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           {slides.map((s, i) => (
             <button
               key={s.id}
@@ -258,22 +250,9 @@ function HeroCarousel({ accent, autoAdvance, slideStyle, onGoDrop, onOpenProduct
                 className="block h-px transition-all duration-300"
                 style={{
                   width: i === idx ? 28 : 16,
-                  background: i === idx ? accent : 'rgba(255,255,255,0.35)',
+                  background: i === idx ? accent : 'rgba(26,23,21,0.3)',
                 }}
               />
-            </button>
-          ))}
-        </div>
-        {/* slide labels (desktop) */}
-        <div className="hidden lg:flex items-center gap-4 font-mono text-[10px] tracking-[0.18em] uppercase text-white/40">
-          {slides.map((s, i) => (
-            <button
-              key={s.id}
-              onClick={(e) => { e.stopPropagation(); goTo(i); }}
-              className={`tabular hover:text-white transition-colors ${i === idx ? 'text-white' : ''}`}
-              data-magnetic
-            >
-              {String(i + 1).padStart(2, '0')} · {s.tag}
             </button>
           ))}
         </div>
@@ -300,30 +279,32 @@ function HeroSlide({ slide: s, style, accent, D, active, tabIndex }) {
 
 function HeroSlideEditorial({ slide: s, accent, D, tabIndex }) {
   return (
-    <div className="grid grid-cols-12 min-h-[78vh]">
+    <div className="grid grid-cols-12 min-h-[80vh]">
       {/* LEFT — type column */}
-      <div className="col-span-12 lg:col-span-7 hl-r border-white/10 p-8 lg:p-14 flex flex-col justify-between">
-        <div className="font-eyebrow text-white/40 mb-6">{s.eyebrow}</div>
+      <div className="col-span-12 lg:col-span-7 hl-r border-black/10 p-10 lg:p-16 flex flex-col justify-between">
+        <div className="font-mono text-[10px] tracking-[0.24em] uppercase text-[#1a1715]/45">
+          {s.eyebrow}
+        </div>
 
-        <div className="my-8 lg:my-12">
+        <div className="my-10 lg:my-14">
           <h1
-            className="font-display leading-[0.82]"
+            className="font-display leading-[0.86]"
             style={{
-              fontWeight: 900,
-              fontSize: 'clamp(48px, 8vw, 132px)',
-              letterSpacing: '-0.05em',
+              fontWeight: 700,
+              fontSize: 'clamp(52px, 7.5vw, 124px)',
+              letterSpacing: '-0.035em',
             }}
           >
             {s.titleA}
             <br />
-            <span style={{ color: accent }}>{s.titleB}</span>
+            {s.titleB}
           </h1>
-          <p className="max-w-md font-mono text-[12px] leading-relaxed text-white/60 mt-8 uppercase tracking-[0.05em]">
+          <p className="max-w-md text-[13.5px] leading-relaxed text-[#1a1715]/65 mt-7" style={{ textWrap: 'pretty' }}>
             {s.sub}
           </p>
         </div>
 
-        <div className="flex flex-wrap items-end gap-6 lg:gap-10">
+        <div className="flex flex-wrap items-end gap-8 lg:gap-12">
           {s.hasCountdown && D && (
             <Countdown targetISO={D.drop.target} size="md" accent={accent} />
           )}
@@ -361,15 +342,15 @@ function HeroSlideEditorial({ slide: s, accent, D, tabIndex }) {
           style={{ width: '100%', flex: 1, minHeight: '52vh' }}
         ></image-slot>
         {s.meta && (
-          <div className="hl-t border-white/10 grid grid-cols-3 font-mono text-[10px] tracking-[0.16em] text-white/60 uppercase">
+          <div className="hl-t border-black/10 grid grid-cols-3 font-mono text-[10px] tracking-[0.16em] text-[#1a1715]/55 uppercase">
             {s.meta.map((m, i) => (
               <div
                 key={m.k}
-                className={`p-4 lg:p-5 ${i < s.meta.length - 1 ? 'hl-r border-white/10' : ''}`}
-                style={i < s.meta.length - 1 ? { borderRight: '1px solid rgba(255,255,255,0.1)' } : undefined}
+                className="p-5 lg:p-6"
+                style={i < s.meta.length - 1 ? { borderRight: '1px solid rgba(26,23,21,0.1)' } : undefined}
               >
-                <div className="text-white/40">{m.k}</div>
-                <div className="text-white mt-2 tabular">{m.v}</div>
+                <div className="text-[#1a1715]/35">{m.k}</div>
+                <div className="text-[#1a1715] mt-2 tabular tracking-[0.05em] normal-case">{m.v}</div>
               </div>
             ))}
           </div>
@@ -391,31 +372,33 @@ function HeroSlideCover({ slide: s, accent, D, tabIndex }) {
       <div
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.95) 100%)',
+          background: 'linear-gradient(180deg, rgba(242,239,231,0.55) 0%, rgba(242,239,231,0.55) 50%, rgba(242,239,231,0.92) 100%)',
         }}
       />
       <div className="relative min-h-[82vh] flex flex-col">
-        <div className="flex-1 flex items-center justify-center px-6 py-16">
-          <div className="text-center max-w-5xl">
-            <div className="font-eyebrow text-white/70 mb-8">{s.eyebrow}</div>
+        <div className="flex-1 flex items-center justify-center px-6 py-20">
+          <div className="text-center max-w-4xl">
+            <div className="font-mono text-[10px] tracking-[0.24em] uppercase text-[#1a1715]/65 mb-8">
+              {s.eyebrow}
+            </div>
             <h1
-              className="font-display leading-[0.82] mb-10"
+              className="font-display leading-[0.86] mb-10"
               style={{
-                fontWeight: 900,
-                fontSize: 'clamp(56px, 11vw, 200px)',
-                letterSpacing: '-0.055em',
+                fontWeight: 700,
+                fontSize: 'clamp(56px, 9vw, 160px)',
+                letterSpacing: '-0.035em',
               }}
             >
               {s.titleA}
               <br />
-              <span style={{ color: accent }}>{s.titleB}</span>
+              {s.titleB}
             </h1>
             {s.hasCountdown && D && (
               <div className="flex justify-center mb-10">
                 <Countdown targetISO={D.drop.target} size="md" accent={accent} />
               </div>
             )}
-            <p className="max-w-xl mx-auto font-mono text-[12px] leading-relaxed text-white/70 uppercase tracking-[0.05em]">
+            <p className="max-w-xl mx-auto text-[14px] leading-relaxed text-[#1a1715]/75" style={{ textWrap: 'pretty' }}>
               {s.sub}
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -445,15 +428,15 @@ function HeroSlideCover({ slide: s, accent, D, tabIndex }) {
 
         {/* bottom meta strip */}
         {s.meta && (
-          <div className="hl-t border-white/15 grid grid-cols-3 font-mono text-[10px] tracking-[0.16em] text-white/70 uppercase backdrop-blur-sm bg-black/30">
+          <div className="hl-t border-black/15 grid grid-cols-3 font-mono text-[10px] tracking-[0.16em] text-[#1a1715]/65 uppercase backdrop-blur-sm bg-[#1a1715]/35">
             {s.meta.map((m, i) => (
               <div
                 key={m.k}
-                className={`p-4 lg:p-5 ${i < s.meta.length - 1 ? 'hl-r border-white/15' : ''}`}
-                style={i < s.meta.length - 1 ? { borderRight: '1px solid rgba(255,255,255,0.15)' } : undefined}
+                className="p-5 lg:p-6"
+                style={i < s.meta.length - 1 ? { borderRight: '1px solid rgba(26,23,21,0.12)' } : undefined}
               >
-                <div className="text-white/50">{m.k}</div>
-                <div className="text-white mt-2 tabular">{m.v}</div>
+                <div className="text-[#1a1715]/45">{m.k}</div>
+                <div className="text-[#1a1715] mt-2 tabular tracking-[0.05em] normal-case">{m.v}</div>
               </div>
             ))}
           </div>

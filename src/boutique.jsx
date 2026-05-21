@@ -11,7 +11,7 @@ function Categories({ accent, onShop }) {
   const D = window.BLB_DATA;
   const [hover, setHover] = useState_b(null);
   return (
-    <section id="categories" className="hl-b border-white/10">
+    <section id="categories" className="hl-b border-black/10">
       <SectionHeader
         index="02"
         eyebrow="BOUTIQUE — CATÉGORIES"
@@ -20,15 +20,15 @@ function Categories({ accent, onShop }) {
         accent={accent}
         meta="03 CATÉGORIES · DROP 008"
       />
-      <div className="grid grid-cols-1 md:grid-cols-3 hl-t border-white/10">
+      <div className="grid grid-cols-1 md:grid-cols-3 hl-t border-black/10">
         {D.categories.map((c, i) => (
           <button
             key={c.id}
             onClick={() => onShop && onShop(c.id)}
             onMouseEnter={() => setHover(c.id)}
             onMouseLeave={() => setHover(null)}
-            className={`group text-left p-8 md:p-10 ${i < 2 ? 'hl-r border-white/10' : ''} relative overflow-hidden min-h-[420px] transition-colors`}
-            style={{ borderRight: i < 2 ? '1px solid rgba(255,255,255,0.1)' : undefined }}
+            className={`group text-left p-8 md:p-10 ${i < 2 ? 'hl-r border-black/10' : ''} relative overflow-hidden min-h-[420px] transition-colors`}
+            style={{ borderRight: i < 2 ? '1px solid rgba(26,23,21,0.1)' : undefined }}
             data-magnetic
           >
             {/* hover bg accent */}
@@ -41,8 +41,8 @@ function Categories({ accent, onShop }) {
             />
             <div className="relative flex flex-col h-full">
               <div className="flex items-start justify-between mb-8">
-                <span className="font-mono text-[10px] tracking-[0.2em] text-white/40 tabular">[{c.n}]</span>
-                <span className="font-mono text-[10px] tracking-[0.2em] text-white/40 tabular">
+                <span className="font-mono text-[10px] tracking-[0.2em] text-[#1a1715]/40 tabular">[{c.n}]</span>
+                <span className="font-mono text-[10px] tracking-[0.2em] text-[#1a1715]/40 tabular">
                   {String(c.count).padStart(2, '0')} RÉF.
                 </span>
               </div>
@@ -57,13 +57,13 @@ function Categories({ accent, onShop }) {
               >
                 {c.name}
               </div>
-              <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-white/50 mb-4">
+              <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-[#1a1715]/50 mb-4">
                 {c.tags}
               </div>
-              <p className="font-mono text-[12px] text-white/65 leading-relaxed">
+              <p className="font-mono text-[12px] text-[#1a1715]/65 leading-relaxed">
                 {c.blurb}
               </p>
-              <div className="mt-auto pt-8 flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] uppercase text-white">
+              <div className="mt-auto pt-8 flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] uppercase text-[#1a1715]">
                 <span>EXPLORER</span>
                 <span
                   className="inline-block transition-transform duration-300"
@@ -86,7 +86,7 @@ function Categories({ accent, onShop }) {
 function Archives({ accent }) {
   const D = window.BLB_DATA;
   return (
-    <section id="archives" className="hl-b border-white/10">
+    <section id="archives" className="hl-b border-black/10">
       <SectionHeader
         index="04"
         eyebrow="ARCHIVES — DROPS 001 → 007"
@@ -95,9 +95,9 @@ function Archives({ accent }) {
         accent={accent}
         meta="07 DROPS · 62 PIÈCES TOTAL"
       />
-      <div className="grid grid-cols-12 hl-t border-white/10">
+      <div className="grid grid-cols-12 hl-t border-black/10">
         {/* table header */}
-        <div className="col-span-12 hl-b border-white/10 grid grid-cols-12 px-6 md:px-10 py-4 font-mono text-[10px] tracking-[0.18em] uppercase text-white/40">
+        <div className="col-span-12 hl-b border-black/10 grid grid-cols-12 px-6 md:px-10 py-4 font-mono text-[10px] tracking-[0.18em] uppercase text-[#1a1715]/40">
           <div className="col-span-1">DROP</div>
           <div className="col-span-3">NOM</div>
           <div className="col-span-2">SAISON</div>
@@ -117,7 +117,7 @@ function ArchiveRow({ d, idx, accent }) {
   const [hover, setHover] = useState_b(false);
   return (
     <div
-      className="col-span-12 hl-b border-white/8 relative overflow-hidden group"
+      className="col-span-12 hl-b border-black/8 relative overflow-hidden group"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -145,27 +145,27 @@ function ArchiveRow({ d, idx, accent }) {
       <a
         href="#"
         onClick={(e) => e.preventDefault()}
-        className="relative z-10 grid grid-cols-12 px-6 md:px-10 py-6 items-center hover:bg-white/[0.015] transition-colors"
+        className="relative z-10 grid grid-cols-12 px-6 md:px-10 py-6 items-center hover:bg-[#1a1715]/[0.015] transition-colors"
         data-magnetic
       >
-        <div className="col-span-1 font-display tabular text-3xl text-white/30" style={{ fontWeight: 900, letterSpacing: '-0.04em' }}>
+        <div className="col-span-1 font-display tabular text-3xl text-[#1a1715]/30" style={{ fontWeight: 900, letterSpacing: '-0.04em' }}>
           {d.code}
         </div>
         <div className="col-span-3">
           <div className="font-display text-2xl leading-tight" style={{ fontWeight: 900, letterSpacing: '-0.03em' }}>{d.name}</div>
-          <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-white/40 mt-1 tabular">{d.year}</div>
+          <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-[#1a1715]/40 mt-1 tabular">{d.year}</div>
         </div>
-        <div className="col-span-2 font-mono text-[10px] tracking-[0.18em] uppercase text-white/55">{d.season}</div>
-        <div className="col-span-2 font-mono text-[10px] tracking-[0.18em] text-white/55 tabular">
+        <div className="col-span-2 font-mono text-[10px] tracking-[0.18em] uppercase text-[#1a1715]/55">{d.season}</div>
+        <div className="col-span-2 font-mono text-[10px] tracking-[0.18em] text-[#1a1715]/55 tabular">
           {String(d.pieces).padStart(2, '0')} RÉF.
         </div>
         <div className="col-span-3 font-mono text-[10px] tracking-[0.18em] uppercase">
           <span className="inline-flex items-center gap-2">
             <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: '#7f1d1d' }} />
-            <span className="text-white/70">{d.status}</span>
+            <span className="text-[#1a1715]/70">{d.status}</span>
           </span>
         </div>
-        <div className="col-span-1 text-right font-mono text-[10px] tracking-[0.22em] uppercase text-white/40 group-hover:text-white transition-colors">
+        <div className="col-span-1 text-right font-mono text-[10px] tracking-[0.22em] uppercase text-[#1a1715]/40 group-hover:text-[#1a1715] transition-colors">
           VOIR →
         </div>
       </a>
@@ -180,7 +180,7 @@ function Atelier({ accent }) {
   const D = window.BLB_DATA;
   const A = D.atelier;
   return (
-    <section id="atelier" className="hl-b border-white/10 bg-black">
+    <section id="atelier" className="hl-b border-black/10 bg-[#F2EFE7]">
       <SectionHeader
         index="05"
         eyebrow="ATELIER — FABRICATION"
@@ -191,8 +191,8 @@ function Atelier({ accent }) {
       />
 
       {/* hero block: pull quote + image */}
-      <div className="grid grid-cols-12 hl-t border-white/10">
-        <div className="col-span-12 lg:col-span-7 hl-r border-white/10 p-8 md:p-14 flex flex-col justify-between">
+      <div className="grid grid-cols-12 hl-t border-black/10">
+        <div className="col-span-12 lg:col-span-7 hl-r border-black/10 p-8 md:p-14 flex flex-col justify-between">
           <h3
             className="font-display leading-[0.92] whitespace-pre-line"
             style={{
@@ -207,7 +207,7 @@ function Atelier({ accent }) {
             <br />
             À PETITS LOTS.
           </h3>
-          <p className="font-mono text-[12px] text-white/60 leading-relaxed mt-10 max-w-md uppercase tracking-[0.04em]">
+          <p className="font-mono text-[12px] text-[#1a1715]/60 leading-relaxed mt-10 max-w-md uppercase tracking-[0.04em]">
             {A.intro}
           </p>
         </div>
@@ -218,25 +218,25 @@ function Atelier({ accent }) {
             placeholder="Atelier · sérigraphie"
             style={{ width: '100%', height: '100%' }}
           ></image-slot>
-          <div className="absolute bottom-4 left-4 right-4 flex justify-between font-mono text-[10px] tracking-[0.18em] uppercase text-white/70 mix-blend-difference">
-            <span>ATELIER · PARIS 19E</span>
-            <span className="tabular">35MM</span>
+          <div className="absolute bottom-4 left-4 right-4 flex justify-between font-mono text-[10px] tracking-[0.18em] uppercase">
+            <span className="bg-[#1a1715] text-[#F2EFE7] px-2 py-1">ATELIER · PARIS 19E</span>
+            <span className="tabular bg-[#1a1715] text-[#F2EFE7] px-2 py-1">35MM</span>
           </div>
         </div>
       </div>
 
       {/* stats strip */}
-      <div className="grid grid-cols-2 md:grid-cols-4 hl-t border-white/10">
+      <div className="grid grid-cols-2 md:grid-cols-4 hl-t border-black/10">
         {A.stats.map((s, i) => (
           <div
             key={s.l}
-            className={`p-6 md:p-10 ${i < A.stats.length - 1 ? 'hl-r border-white/10' : ''} hl-b border-white/10`}
-            style={i < A.stats.length - 1 ? { borderRight: '1px solid rgba(255,255,255,0.1)' } : undefined}
+            className={`p-6 md:p-10 ${i < A.stats.length - 1 ? 'hl-r border-black/10' : ''} hl-b border-black/10`}
+            style={i < A.stats.length - 1 ? { borderRight: '1px solid rgba(26,23,21,0.1)' } : undefined}
           >
             <div className="font-display tabular" style={{ fontWeight: 900, fontSize: 'clamp(48px, 6vw, 96px)', letterSpacing: '-0.05em' }}>
               {s.k}
             </div>
-            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/50 mt-3 max-w-[10ch]">
+            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#1a1715]/50 mt-3 max-w-[10ch]">
               {s.l}
             </div>
           </div>
@@ -244,23 +244,23 @@ function Atelier({ accent }) {
       </div>
 
       {/* steps */}
-      <div className="grid grid-cols-1 md:grid-cols-5 hl-t border-white/10">
+      <div className="grid grid-cols-1 md:grid-cols-5 hl-t border-black/10">
         {A.steps.map((s, i) => (
           <div
             key={s.n}
-            className={`p-6 md:p-8 ${i < A.steps.length - 1 ? 'md:hl-r border-white/10' : ''} hl-b border-white/10 relative`}
-            style={i < A.steps.length - 1 ? { borderRight: '1px solid rgba(255,255,255,0.1)' } : undefined}
+            className={`p-6 md:p-8 ${i < A.steps.length - 1 ? 'md:hl-r border-black/10' : ''} hl-b border-black/10 relative`}
+            style={i < A.steps.length - 1 ? { borderRight: '1px solid rgba(26,23,21,0.1)' } : undefined}
           >
-            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/40 tabular">{s.n}</div>
+            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#1a1715]/40 tabular">{s.n}</div>
             <div className="font-display text-2xl leading-tight mt-4" style={{ fontWeight: 900, letterSpacing: '-0.03em' }}>
               {s.t}
             </div>
-            <p className="font-mono text-[11px] text-white/55 leading-relaxed mt-3">
+            <p className="font-mono text-[11px] text-[#1a1715]/55 leading-relaxed mt-3">
               {s.d}
             </p>
             {/* connecting line */}
             {i < A.steps.length - 1 && (
-              <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-px bg-white/15" />
+              <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-px bg-[#1a1715]/15" />
             )}
           </div>
         ))}
@@ -276,7 +276,7 @@ function FAQ({ accent }) {
   const D = window.BLB_DATA;
   const [openIdx, setOpenIdx] = useState_b(0);
   return (
-    <section id="faq" className="hl-b border-white/10">
+    <section id="faq" className="hl-b border-black/10">
       <SectionHeader
         index="06"
         eyebrow="QUESTIONS — RÉPONSES"
@@ -285,27 +285,27 @@ function FAQ({ accent }) {
         accent={accent}
         meta="06 ENTRÉES · MAJ 14.05.26"
       />
-      <div className="grid grid-cols-12 hl-t border-white/10">
+      <div className="grid grid-cols-12 hl-t border-black/10">
         {/* left column — contact */}
-        <div className="col-span-12 lg:col-span-4 hl-r border-white/10 p-6 md:p-10 flex flex-col justify-between">
+        <div className="col-span-12 lg:col-span-4 hl-r border-black/10 p-6 md:p-10 flex flex-col justify-between">
           <div>
-            <div className="font-eyebrow text-white/40 mb-4">[CONTACT]</div>
+            <div className="font-eyebrow text-[#1a1715]/40 mb-4">[CONTACT]</div>
             <div className="space-y-4 font-mono text-[12px] uppercase tracking-[0.05em]">
               <div>
-                <div className="text-white/40 text-[10px] tracking-[0.18em]">AIDE GÉNÉRALE</div>
-                <a href="mailto:aide@blb-store.fr" className="text-white hover:text-white/70" data-magnetic>aide@blb-store.fr</a>
+                <div className="text-[#1a1715]/40 text-[10px] tracking-[0.18em]">AIDE GÉNÉRALE</div>
+                <a href="mailto:aide@blb-store.fr" className="text-[#1a1715] hover:text-[#1a1715]/70" data-magnetic>aide@blb-store.fr</a>
               </div>
               <div>
-                <div className="text-white/40 text-[10px] tracking-[0.18em]">COMMANDES & RETOURS</div>
-                <a href="mailto:commandes@blb-store.fr" className="text-white hover:text-white/70" data-magnetic>commandes@blb-store.fr</a>
+                <div className="text-[#1a1715]/40 text-[10px] tracking-[0.18em]">COMMANDES & RETOURS</div>
+                <a href="mailto:commandes@blb-store.fr" className="text-[#1a1715] hover:text-[#1a1715]/70" data-magnetic>commandes@blb-store.fr</a>
               </div>
               <div>
-                <div className="text-white/40 text-[10px] tracking-[0.18em]">PRESSE</div>
-                <a href="mailto:presse@blb.fr" className="text-white hover:text-white/70" data-magnetic>presse@blb.fr</a>
+                <div className="text-[#1a1715]/40 text-[10px] tracking-[0.18em]">PRESSE</div>
+                <a href="mailto:presse@blb.fr" className="text-[#1a1715] hover:text-[#1a1715]/70" data-magnetic>presse@blb.fr</a>
               </div>
-              <div className="pt-4 hl-t border-white/10">
-                <div className="text-white/40 text-[10px] tracking-[0.18em]">RÉPONSE SOUS</div>
-                <div className="text-white tabular">24 / 48 H · LUN-VEN</div>
+              <div className="pt-4 hl-t border-black/10">
+                <div className="text-[#1a1715]/40 text-[10px] tracking-[0.18em]">RÉPONSE SOUS</div>
+                <div className="text-[#1a1715] tabular">24 / 48 H · LUN-VEN</div>
               </div>
             </div>
           </div>
@@ -319,22 +319,22 @@ function FAQ({ accent }) {
           {D.faq.map((f, i) => {
             const open = openIdx === i;
             return (
-              <div key={i} className="hl-b border-white/10">
+              <div key={i} className="hl-b border-black/10">
                 <button
                   onClick={() => setOpenIdx(open ? -1 : i)}
-                  className="w-full flex items-baseline gap-6 px-6 md:px-10 py-6 text-left hover:bg-white/[0.02] transition-colors"
+                  className="w-full flex items-baseline gap-6 px-6 md:px-10 py-6 text-left hover:bg-[#1a1715]/[0.02] transition-colors"
                   data-magnetic
                 >
-                  <span className="font-mono text-[10px] tracking-[0.2em] text-white/35 tabular shrink-0">
+                  <span className="font-mono text-[10px] tracking-[0.2em] text-[#1a1715]/35 tabular shrink-0">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span
                     className="flex-1 font-display leading-tight"
-                    style={{ fontWeight: 900, fontSize: 'clamp(20px, 2vw, 30px)', letterSpacing: '-0.025em', color: open ? '#fff' : 'rgba(255,255,255,0.75)' }}
+                    style={{ fontWeight: 900, fontSize: 'clamp(20px, 2vw, 30px)', letterSpacing: '-0.025em', color: open ? '#1a1715' : 'rgba(26,23,21,0.75)' }}
                   >
                     {f.q}
                   </span>
-                  <span className="font-mono text-xl text-white/60 shrink-0" style={{ transform: open ? 'rotate(45deg)' : 'rotate(0)', transition: 'transform .25s' }}>
+                  <span className="font-mono text-xl text-[#1a1715]/60 shrink-0" style={{ transform: open ? 'rotate(45deg)' : 'rotate(0)', transition: 'transform .25s' }}>
                     +
                   </span>
                 </button>
@@ -343,7 +343,7 @@ function FAQ({ accent }) {
                   style={{ maxHeight: open ? 200 : 0 }}
                 >
                   <div className="px-6 md:px-10 pb-6 pl-12 md:pl-[88px]">
-                    <p className="font-mono text-[12px] leading-relaxed text-white/65 max-w-2xl">
+                    <p className="font-mono text-[12px] leading-relaxed text-[#1a1715]/65 max-w-2xl">
                       {f.a}
                     </p>
                   </div>

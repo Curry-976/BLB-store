@@ -4,14 +4,14 @@ const { useState: useState_a, useEffect: useEffect_a, useMemo: useMemo_a } = Rea
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "type": "mix",
-  "accent": "#C0C0C0",
-  "grid": "asym",
+  "accent": "#1a1715",
+  "grid": "4",
   "heroStyle": "editorial",
   "heroAuto": true,
-  "grain": "subtle"
+  "grain": "off"
 }/*EDITMODE-END*/;
 
-const ACCENT_OPTIONS = ['#C0C0C0', '#FFFFFF', '#9B1313'];
+const ACCENT_OPTIONS = ['#1a1715', '#7a5a32', '#9B1313'];
 
 function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
@@ -76,6 +76,7 @@ function App() {
 
   return (
     <>
+      <MagneticCursor />
       <Grain level={t.grain} />
 
       <Header
@@ -87,7 +88,7 @@ function App() {
 
       {/* "added to cart" flash */}
       <div
-        className="fixed top-[80px] right-6 z-[1200] font-mono text-[11px] tracking-[0.2em] uppercase px-4 py-3 bg-white text-black"
+        className="fixed top-[80px] right-6 z-[1200] font-mono text-[11px] tracking-[0.2em] uppercase px-4 py-3 bg-[#1a1715] text-[#F2EFE7]"
         style={{
           transform: `translateY(${flashAdded ? 0 : -20}px)`,
           opacity: flashAdded ? 1 : 0,
