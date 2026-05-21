@@ -96,13 +96,16 @@ function Grain({ level }) {
    ───────────────────────────────────────────── */
 function Header({ onNavigate, cartCount, onOpenCart, view }) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [time, setTime] = useState('');
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
   useEffect(() => {
     const tick = () => {
       const d = new Date();
@@ -114,92 +117,181 @@ function Header({ onNavigate, cartCount, onOpenCart, view }) {
     return () => clearInterval(id);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  const handleNav = (href) => {
+    setMenuOpen(false);
+    onNavigate(href.replace('#', ''));
+  };
+
   const D = window.BLB_DATA;
 
-  return (
-    <header
-      className="fixed top-0 left-0 right-0 z-[1000]"
-      style={{
-        backdropFilter: scrolled ? 'blur(18px) saturate(140%)' : 'blur(6px)',
-        WebkitBackdropFilter: scrolled ? 'blur(18px) saturate(140%)' : 'blur(6px)',
-        background: scrolled ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.18)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
-        transition: 'background .25s, backdrop-filter .25s, border-color .25s',
-      }}
+  const Logo = () => (
+    <button
+      onClick={() => handleNav('home')}
+      className="font-display text-[28px] leading-none text-white select-none"
+      style={{ fontWeight: 900, letterSpacing: '-0.03em' }}
+      data-magnetic
     >
-      {/* status bar */}
-      <div className="hl-b border-white/5 px-5 py-1.5 flex items-center justify-between text-[10px] font-mono tracking-[0.18em] text-white/50 uppercase tabular gap-3">
-        <div className="flex items-center gap-4 whitespace-nowrap">
-          <span className="inline-flex items-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-            RADAR ACTIF
-          </span>
-          <span className="hidden md:inline">{D.brand.coords}</span>
+      <span className="inline-flex items-baseline gap-[2px]">
+        <span>B</span>
+        <span className="text-white/50 text-[12px] font-mono tracking-widest mx-0.5">·</span>
+        <span>L</span>
+        <span className="text-white/50 text-[12px] font-mono tracking-widest mx-0.5">·</span>
+        <span>B</span>
+      </span>
+    </button>
+  );
+
+  const CartBtn = ({ compact }) => (
+    <button
+      onClick={onOpenCart}
+      className={`font-mono text-[11px] tracking-[0.18em] uppercase text-white inline-flex items-center gap-2 hl-white ${compact ? 'px-2.5 py-1.5' : 'px-3 py-1.5'}`}
+      data-magnetic
+    >
+      <svg width="11" height="12" viewBox="0 0 11 12" fill="none" stroke="currentColor" strokeWidth="1">
+        <path d="M1 3H10L9 11H2L1 3Z" />
+        <path d="M3.5 3V2A2 2 0 0 1 7.5 2V3" />
+      </svg>
+      {!compact && <span>PANIER </span>}
+      <span className="tabular text-white/60">[{String(cartCount).padStart(2, '0')}]</span>
+    </button>
+  );
+
+  return (
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 z-[1000]"
+        style={{
+          backdropFilter: scrolled ? 'blur(18px) saturate(140%)' : 'blur(6px)',
+          WebkitBackdropFilter: scrolled ? 'blur(18px) saturate(140%)' : 'blur(6px)',
+          background: scrolled ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.18)',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          transition: 'background .25s, backdrop-filter .25s, border-color .25s',
+        }}
+      >
+        {/* status bar */}
+        <div className="hl-b border-white/5 px-5 py-1.5 flex items-center justify-between text-[10px] font-mono tracking-[0.18em] text-white/50 uppercase tabular gap-3">
+          <div className="flex items-center gap-4 whitespace-nowrap">
+            <span className="inline-flex items-center gap-2">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+              RADAR ACTIF
+            </span>
+            <span className="hidden md:inline">{D.brand.coords}</span>
+          </div>
+          <div className="flex items-center gap-4 whitespace-nowrap">
+            <span className="hidden md:inline">{D.drop.code} · {D.drop.state}</span>
+            <span>{time || '00:00:00 CET'}</span>
+          </div>
         </div>
-        <div className="flex items-center gap-4 whitespace-nowrap">
-          <span className="hidden md:inline">{D.drop.code} · {D.drop.state}</span>
-          <span>{time || '00:00:00 CET'}</span>
+
+        {/* ── Desktop nav (md+) ── */}
+        <div className="hidden md:grid px-5 py-3 grid-cols-3 items-center">
+          <nav className="flex items-center gap-4 lg:gap-6 min-w-0">
+            {D.nav.slice(0, 3).map((n) => (
+              <button
+                key={n.label}
+                onClick={() => handleNav(n.href)}
+                className="font-mono text-[11px] tracking-[0.18em] uppercase text-white/80 hover:text-white transition-colors whitespace-nowrap"
+                data-magnetic
+              >
+                {n.label}
+              </button>
+            ))}
+          </nav>
+
+          <div className="flex justify-center"><Logo /></div>
+
+          <nav className="flex items-center gap-4 lg:gap-6 justify-end min-w-0">
+            {D.nav.slice(3).map((n) => (
+              <button
+                key={n.label}
+                onClick={() => handleNav(n.href)}
+                className="font-mono text-[11px] tracking-[0.18em] uppercase text-white/80 hover:text-white transition-colors whitespace-nowrap"
+                data-magnetic
+              >
+                {n.label}
+              </button>
+            ))}
+            <CartBtn />
+          </nav>
         </div>
-      </div>
 
-      {/* nav */}
-      <div className="px-5 py-3 grid grid-cols-3 items-center">
-        {/* left nav */}
-        <nav className="flex items-center gap-4 lg:gap-6 min-w-0">
-          {D.nav.slice(0, 3).map((n) => (
-            <button
-              key={n.label}
-              onClick={() => onNavigate(n.href.replace('#', ''))}
-              className="font-mono text-[11px] tracking-[0.18em] uppercase text-white/80 hover:text-white transition-colors"
-              data-magnetic
-            >
-              {n.label}
-            </button>
-          ))}
-        </nav>
-
-        {/* logo */}
-        <button
-          onClick={() => onNavigate('home')}
-          className="font-display text-[28px] leading-none text-white text-center select-none"
-          style={{ fontWeight: 900, letterSpacing: '-0.03em' }}
-          data-magnetic
-        >
-          <span className="inline-flex items-baseline gap-[2px]">
-            <span>B</span>
-            <span className="text-white/50 text-[12px] font-mono tracking-widest mx-0.5">·</span>
-            <span>L</span>
-            <span className="text-white/50 text-[12px] font-mono tracking-widest mx-0.5">·</span>
-            <span>B</span>
-          </span>
-        </button>
-
-        {/* right nav */}
-        <nav className="flex items-center gap-4 lg:gap-6 justify-end min-w-0">
-          {D.nav.slice(3).map((n) => (
-            <button
-              key={n.label}
-              onClick={() => onNavigate(n.href.replace('#', ''))}
-              className="font-mono text-[11px] tracking-[0.18em] uppercase text-white/80 hover:text-white transition-colors hidden md:inline"
-              data-magnetic
-            >
-              {n.label}
-            </button>
-          ))}
+        {/* ── Mobile nav (< md) ── */}
+        <div className="flex md:hidden items-center justify-between px-5 py-3">
+          {/* hamburger */}
           <button
-            onClick={onOpenCart}
-            className="font-mono text-[11px] tracking-[0.18em] uppercase text-white inline-flex items-center gap-2 px-3 py-1.5 hl-white"
+            onClick={() => setMenuOpen((v) => !v)}
+            className="flex flex-col justify-center gap-[5px] w-8 h-8 shrink-0"
+            aria-label="Menu"
             data-magnetic
           >
-            <svg width="11" height="12" viewBox="0 0 11 12" fill="none" stroke="currentColor" strokeWidth="1">
-              <path d="M1 3H10L9 11H2L1 3Z" />
-              <path d="M3.5 3V2A2 2 0 0 1 7.5 2V3" />
-            </svg>
-            PANIER <span className="tabular text-white/60">[{String(cartCount).padStart(2, '0')}]</span>
+            <span
+              className="block h-px bg-white transition-all duration-300 origin-center"
+              style={{ transform: menuOpen ? 'translateY(6px) rotate(45deg)' : 'none' }}
+            />
+            <span
+              className="block h-px bg-white transition-all duration-300"
+              style={{ opacity: menuOpen ? 0 : 1, transform: menuOpen ? 'scaleX(0)' : 'none' }}
+            />
+            <span
+              className="block h-px bg-white transition-all duration-300 origin-center"
+              style={{ transform: menuOpen ? 'translateY(-6px) rotate(-45deg)' : 'none' }}
+            />
           </button>
+
+          <Logo />
+
+          <CartBtn compact />
+        </div>
+      </header>
+
+      {/* ── Mobile menu overlay ── */}
+      <div
+        className="fixed inset-0 z-[999] md:hidden flex flex-col"
+        style={{
+          background: 'rgba(0,0,0,0.97)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          opacity: menuOpen ? 1 : 0,
+          pointerEvents: menuOpen ? 'auto' : 'none',
+          transition: 'opacity .3s cubic-bezier(.2,.7,.2,1)',
+        }}
+      >
+        {/* top spacer = header height */}
+        <div style={{ height: '88px' }} />
+
+        <nav className="flex-1 flex flex-col justify-center px-8 gap-1">
+          {D.nav.map((n, i) => (
+            <button
+              key={n.label}
+              onClick={() => handleNav(n.href)}
+              className="font-display text-left py-4 border-b border-white/10 text-white/80 hover:text-white transition-colors"
+              style={{
+                fontSize: 'clamp(28px, 8vw, 48px)',
+                fontWeight: 900,
+                letterSpacing: '-0.02em',
+                transitionDelay: menuOpen ? `${i * 50}ms` : '0ms',
+                transform: menuOpen ? 'translateX(0)' : 'translateX(-16px)',
+                opacity: menuOpen ? 1 : 0,
+                transition: `transform .35s cubic-bezier(.2,.7,.2,1) ${i * 50}ms, opacity .35s ${i * 50}ms, color .2s`,
+              }}
+              data-magnetic
+            >
+              <span className="font-mono text-[11px] tracking-[0.2em] text-white/30 mr-3">0{i + 1}</span>
+              {n.label}
+            </button>
+          ))}
         </nav>
+
+        <div className="px-8 pb-10 font-mono text-[10px] tracking-[0.2em] text-white/30 uppercase">
+          {D.brand.coords} · {D.drop.code}
+        </div>
       </div>
-    </header>
+    </>
   );
 }
 
